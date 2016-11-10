@@ -18,7 +18,7 @@ def get_url(place_name):
     '''
     try:
         url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-        #place_name = place_name.strip(string.punctuation)
+        place_name = place_name.strip(string.punctuation)
         for word in place_name.split():
             if url != place_name.split()[:-1]:
                 url = url +  word + "+"
@@ -62,11 +62,10 @@ def get_nearest_station(latitude, longitude):
     formatting requirements for the 'stopsbylocation' API.
     """
     url =  "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat=" + str(latitude) +  "&lon=" + str(longitude) + "&format=json"
-
     result = get_json(url)
 
-    stopname = result["stop"]
-    distance = result["stop"]
+    stopname = result["stop"][0]["stop_name"]
+    distance = result["stop"][0]["distance"]
 
     return (stopname, distance)
 
@@ -76,12 +75,11 @@ def find_stop_near(place_name):
     Given a place name or address, return the nearest MBTA stop and the 
     distance from the given place to that stop.
     """
-    pass
+    lat, lng = get_lat_long(place_name)
+    return get_nearest_station(lat, lng)
 
 def main():
-    lat, lng = get_lat_long('Babson College Wellesley')
-    print("%f, %f" % (lat, lng))
-    print(get_nearest_station(lat, lng))
+    print(find_stop_near('100 Boylston Street, Boston'))
 
 
 if __name__ == '__main__':
