@@ -1,5 +1,6 @@
 import urllib.request   # urlencode function
 import json
+import string
 
 
 # Useful URLs (you need to add the appropriate parameters for your requests)
@@ -17,6 +18,7 @@ def get_url(place_name):
     '''
     try:
         url = "https://maps.googleapis.com/maps/api/geocode/json?address="
+        place_name = place_name.strip(string.punctuation)
         for word in place_name.split():
             if url != place_name.split()[:-1]:
                 url = url +  word + "+"
@@ -47,7 +49,7 @@ def get_lat_long(place_name):
     """
     url = get_url(place_name)
     result = get_json(url)
-    lat, lng = result['results']['geometry']['location']['lat'], result['results']['geometry']['location']['lng']
+    lat, lng = result['results'][0]['geometry']['location']['lat'], result['results'][0]['geometry']['location']['lng']
     return (lat, lng)    
 
 
@@ -59,20 +61,14 @@ def get_nearest_station(latitude, longitude):
     See http://realtime.mbta.com/Portal/Home/Documents for URL
     formatting requirements for the 'stopsbylocation' API.
     """
-    places = get_lat_long(place_name)
-    if places ['status'] != 'OK':
-        warning("status=" + places['status'])
-        return
+    url =  "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat=" + str(latitude) +  "&lon=" + str(longitude) + "&format=json"
 
-    for result in places['results']:
-        placeid = result['place_id']
+    result = get_json(url)
 
-        if detail['status'] != 'OK':
-            break
-        station = detail['results']['name']
-        loc = detail['result']['geometry']['location']
+    stopname = result['stop'][0]['stop_name']
+    distance = result['stop'][0]['distance']
 
-
+    return (stopname, distance)
 
 
 def find_stop_near(place_name):
@@ -81,3 +77,11 @@ def find_stop_near(place_name):
     distance from the given place to that stop.
     """
     pass
+
+def main():
+    lat, lng = get_lat_long('Babson College, Wellesley')
+    print(get_nearest_station(lat, lng))
+
+
+if __name__ == '__main__':
+    main()
