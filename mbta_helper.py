@@ -18,7 +18,7 @@ def get_url(place_name):
     '''
     try:
         url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-        place_name = place_name.strip(string.punctuation)
+        #place_name = place_name.strip(string.punctuation)
         for word in place_name.split():
             if url != place_name.split()[:-1]:
                 url = url +  word + "+"
@@ -65,8 +65,8 @@ def get_nearest_station(latitude, longitude):
 
     result = get_json(url)
 
-    stopname = result['stop'][0]['stop_name']
-    distance = result['stop'][0]['distance']
+    stopname = result["stop"]
+    distance = result["stop"]
 
     return (stopname, distance)
 
@@ -79,7 +79,8 @@ def find_stop_near(place_name):
     pass
 
 def main():
-    lat, lng = get_lat_long('Babson College, Wellesley')
+    lat, lng = get_lat_long('Babson College Wellesley')
+    print("%f, %f" % (lat, lng))
     print(get_nearest_station(lat, lng))
 
 

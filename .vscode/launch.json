@@ -5,7 +5,7 @@
             "name": "Python",
             "type": "python",
             "request": "launch",
-            "stopOnEntry": true,
+            "stopOnEntry": false,
             "pythonPath": "${config.python.pythonPath}",
             "program": "${file}",
             "debugOptions": [
@@ -18,7 +18,7 @@
             "name": "Integrated Terminal/Console",
             "type": "python",
             "request": "launch",
-            "stopOnEntry": true,
+            "stopOnEntry": false,
             "pythonPath": "${config.python.pythonPath}",
             "program": "${file}",
             "console": "integratedTerminal",
@@ -31,7 +31,7 @@
             "name": "External Terminal/Console",
             "type": "python",
             "request": "launch",
-            "stopOnEntry": true,
+            "stopOnEntry": false,
             "pythonPath": "${config.python.pythonPath}",
             "program": "${file}",
             "console": "externalTerminal",
@@ -62,28 +62,7 @@
             "name": "Flask",
             "type": "python",
             "request": "launch",
-            "stopOnEntry": false,
-            "pythonPath": "${config.python.pythonPath}",
-            "program": "fully qualified path fo 'flask' executable. Generally located along with python interpreter",
-            "env": {
-                "FLASK_APP": "${workspaceRoot}/quickstart/app.py"
-            },
-            "args": [
-                "run",
-                "--no-debugger",
-                "--no-reload"
-            ],
-            "debugOptions": [
-                "WaitOnAbnormalExit",
-                "WaitOnNormalExit",
-                "RedirectOutput"
-            ]
-        },
-        {
-            "name": "Flask (old)",
-            "type": "python",
-            "request": "launch",
-            "stopOnEntry": false,
+            "stopOnEntry": true,
             "pythonPath": "${config.python.pythonPath}",
             "program": "${workspaceRoot}/run.py",
             "args": [],
