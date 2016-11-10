@@ -29,7 +29,11 @@ def get_lat_long(place_name):
     See https://developers.google.com/maps/documentation/geocoding/
     for Google Maps Geocode API URL formatting requirements.
     """
-    result = get_json(place_name)
+    url = get_url(place_name)
+    result = get_json(url)
+    lat, lng = result['results']['geometry']['location']['lat'], result['results']['geometry']['location']['lng']
+    return (lat, lng)    
+
 
 
 
