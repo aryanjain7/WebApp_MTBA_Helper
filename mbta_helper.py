@@ -79,7 +79,7 @@ def find_stop_near(place_name):
     return get_nearest_station(lat, lng)
 
 def main():
-    print(find_stop_near('100 Boylston Street, Boston'))
+    print(find_stop_near('AMC Lowes Boston Common, Boston'))
 
 
 if __name__ == '__main__':
