@@ -10,6 +10,15 @@ MBTA_DEMO_API_KEY = "wX9NwuHnZU2ToO7GmGR9uw"
 
 # A little bit of scaffolding if you want to use it
 
+def get_url(place_name):
+    try:
+        url = "https://maps.googleapis.com/maps/api/geocode/json?address="
+        for word in place_name.split():
+            url = url +  word + "+"
+        return url
+    except:
+        print('Cannot find location.')
+
 def get_json(url):
     """
     Given a properly formatted URL for a JSON web API request, return
@@ -29,7 +38,11 @@ def get_lat_long(place_name):
     See https://developers.google.com/maps/documentation/geocoding/
     for Google Maps Geocode API URL formatting requirements.
     """
-    result = get_json(place_name)
+    url = get_url(place_name)
+    result = get_json(url)
+    lat, lng = result['results']['geometry']['location']['lat'], result['results']['geometry']['location']['lng']
+    return (lat, lng)    
+
 
 
 
