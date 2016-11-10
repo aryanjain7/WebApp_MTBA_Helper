@@ -45,7 +45,6 @@ def get_lat_long(place_name):
 
 
 
-
 def get_nearest_station(latitude, longitude):
     """
     Given latitude and longitude strings, return a (station_name, distance)
@@ -53,30 +52,18 @@ def get_nearest_station(latitude, longitude):
     See http://realtime.mbta.com/Portal/Home/Documents for URL
     formatting requirements for the 'stopsbylocation' API.
     """
-    places = get_lat_Long(place_name)
+    places = get_lat_long(place_name)
     if places ['status'] != 'OK':
         warning("status=" + places['status'])
         return
 
     for result in places['results']:
         placeid = result['place_id']
-        
+
         if detail['status'] != 'OK':
             break
         station = detail['results']['name']
         loc = detail['result']['geometry']['location']
-
-        buspage = get_webpage(detail['result']['url'])
-        tree = html.fromstring(buspage)
-        bus_elm = tree.xpath("/html/body/div[1]/div/div[4]/div[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/div/div[2]/div/table/tr/td")
-        if not bus_elm:
-            warning('xpath get bus failed')
-            continue
-        bus_elm = bus_elm[0]
-        buses = list(filter(lambda s: len(s.strip()) > 0,
-                            bus_elm.text_content().strip().split()))
-        yield (station, float(loc['lat']), float(loc['lng']), buses)
-
 
 
 
