@@ -29,6 +29,7 @@ def get_lat_long(place_name):
     See https://developers.google.com/maps/documentation/geocoding/
     for Google Maps Geocode API URL formatting requirements.
     """
+    print('test_aryan commit')
     pass
 
 
