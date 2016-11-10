@@ -11,10 +11,17 @@ MBTA_DEMO_API_KEY = "wX9NwuHnZU2ToO7GmGR9uw"
 # A little bit of scaffolding if you want to use it
 
 def get_url(place_name):
+    '''
+    This function takes a place name as a string and
+    returns the associated Google API search URL
+    '''
     try:
         url = "https://maps.googleapis.com/maps/api/geocode/json?address="
         for word in place_name.split():
-            url = url +  word + "+"
+            if url != place_name.split()[:-1]:
+                url = url +  word + "+"
+            else:
+                url += word
         return url
     except:
         print('Cannot find location.')
