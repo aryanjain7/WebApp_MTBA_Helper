@@ -49,8 +49,12 @@ def get_lat_long(place_name):
     """
     url = get_url(place_name)
     result = get_json(url)
-    lat, lng = result['results'][0]['geometry']['location']['lat'], result['results'][0]['geometry']['location']['lng']
-    return (lat, lng)    
+    if(result['results'] != []):
+        lat, lng = result['results'][0]['geometry']['location']['lat'], result['results'][0]['geometry']['location']['lng']
+        return (lat, lng) 
+    else:
+        print('Google could not find your location bruh. You searching for Area 51?')
+    return (0,0)
 
 
 
@@ -63,11 +67,13 @@ def get_nearest_station(latitude, longitude):
     """
     url =  "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat=" + str(latitude) +  "&lon=" + str(longitude) + "&format=json"
     result = get_json(url)
-
-    stopname = result["stop"][0]["stop_name"]
-    distance = result["stop"][0]["distance"]
-
-    return (stopname, distance)
+    if(result["stop"] != []):
+        stopname = result["stop"][0]["stop_name"]
+        distance = result["stop"][0]["distance"]
+        return (stopname, distance)
+    else:
+        print("No stations near you. Are you even in Boston?")
+        return ("Area 51", 'Inf miles away')
 
 
 def find_stop_near(place_name):
@@ -79,7 +85,8 @@ def find_stop_near(place_name):
     return get_nearest_station(lat, lng)
 
 def main():
-    print(find_stop_near('AMC Lowes Boston Common, Boston'))
+    place = input("Name a landmark near you bruh: ")
+    print(find_stop_near(place))
 
 
 if __name__ == '__main__':
