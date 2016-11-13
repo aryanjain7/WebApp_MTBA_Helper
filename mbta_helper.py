@@ -17,18 +17,17 @@ def get_url(place_name):
     This function takes a place name as a string and
     returns the associated Google API search URL
     '''
-    try:
-        url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-        place_name = place_name.strip(string.punctuation)
-        for word in place_name.split():
-            if url != place_name.split()[:-1]:
-                url = url +  word + "+"
-            else:
-                url += word
-        return url
-    except:
-        print('Cannot find location.')
-
+    # use the Google API to find the given place, if the API cannot find out the place
+    # return 'cannot find location'
+   # try:
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address="
+        # add the place to the url, which can be read by the API
+    place_name = place_name.strip(string.punctuation)
+    query = urllib.parse.quote_plus(place_name, safe='', encoding=None, errors=None)
+    url += query
+    return url
+    #except:
+        #print('Cannot find location.')
 def get_json(url):
     """
     Given a properly formatted URL for a JSON web API request, return
@@ -50,6 +49,7 @@ def get_lat_long(place_name):
     """
     url = get_url(place_name)
     result = get_json(url)
+    # extract the latitude and longitude of the place from the JSON object
     if(result['results'] != []):
         lat, lng = result['results'][0]['geometry']['location']['lat'], result['results'][0]['geometry']['location']['lng']
         return (lat, lng) 
