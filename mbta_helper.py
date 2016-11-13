@@ -33,8 +33,9 @@ def get_json(url):
     Given a properly formatted URL for a JSON web API request, return
     a Python JSON object containing the response to that request.
     """
-    #create a object to store the 
+    #create a object to store the result
     f = urllib.request.urlopen(url)
+    # convert the result to a python JSON object
     response_text = f.read().decode('utf-8')
     response_data = json.loads(response_text)
     return response_data
