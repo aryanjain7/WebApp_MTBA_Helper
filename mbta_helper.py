@@ -16,24 +16,24 @@ def get_url(place_name):
     '''
     This function takes a place name as a string and
     returns the associated Google API search URL
-    '''
-    # use the Google API to find the given place, if the API cannot find out the place
-    # return 'cannot find location'
-   # try:
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-        # add the place to the url, which can be read by the API
-    place_name = place_name.strip(string.punctuation)
-    query = urllib.parse.quote_plus(place_name, safe='', encoding=None, errors=None)
-    url += query
-    return url
-    #except:
-        #print('Cannot find location.')
+    ''' 
+    # generate a URL for Google API to search the place 
+    # if the URL cannot be generated, return else
+    try:
+        url = "https://maps.googleapis.com/maps/api/geocode/json?address="
+        # add the place name to the URL
+        lace_name = place_name.strip(string.punctuation)
+        query = urllib.parse.quote_plus(place_name, safe='', encoding=None, errors=None)
+        url += query
+        return url
+    except:
+        print('Cannot find location.')
 def get_json(url):
     """
     Given a properly formatted URL for a JSON web API request, return
     a Python JSON object containing the response to that request.
     """
-    # url = "https://maps.googleapis.com/maps/api/geocode/json?address=Prudential%20Tower"
+    #create a object to store the 
     f = urllib.request.urlopen(url)
     response_text = f.read().decode('utf-8')
     response_data = json.loads(response_text)
@@ -51,8 +51,10 @@ def get_lat_long(place_name):
     result = get_json(url)
     # extract the latitude and longitude of the place from the JSON object
     if(result['results'] != []):
+        # store the latitude and longtitude to two objects 
         lat, lng = result['results'][0]['geometry']['location']['lat'], result['results'][0]['geometry']['location']['lng']
         return (lat, lng) 
+    # return else if Google API cannot find the place
     else:
         print('Google could not find your location bruh. You searching for Area 51?')
     return (0,0)
@@ -66,12 +68,15 @@ def get_nearest_station(latitude, longitude):
     See http://realtime.mbta.com/Portal/Home/Documents for URL
     formatting requirements for the 'stopsbylocation' API.
     """
+    # use the MBTA API to search MBTA Station near the given place
     url =  "http://realtime.mbta.com/developer/api/v2/stopsbylocation?api_key=wX9NwuHnZU2ToO7GmGR9uw&lat=" + str(latitude) +  "&lon=" + str(longitude) + "&format=json"
+    # create objects to store the result
     result = get_json(url)
     if(result["stop"] != []):
         stopname = result["stop"][0]["stop_name"]
         distance = result["stop"][0]["distance"]
         return (stopname, distance)
+    # return else, if no station found out within one mile of the location
     else:
         print("No stations near you. Are you even in Boston?")
         return ("Area 51", 'Inf miles away')
