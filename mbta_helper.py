@@ -20,11 +20,13 @@ def get_url(place_name):
     try:
         url = "https://maps.googleapis.com/maps/api/geocode/json?address="
         place_name = place_name.strip(string.punctuation)
-        for word in place_name.split():
-            if url != place_name.split()[:-1]:
-                url = url +  word + "+"
-            else:
-                url += word
+        # for word in place_name.split():
+        #     if url != place_name.split()[:-1]:
+        #         url = url +  word + "+"
+        #     else:
+        #         url += word
+        query = urllib.parse.quote_plus(place_name, safe='', encoding=None, errors=None)
+        url += query
         return url
     except:
         print('Cannot find location.')
