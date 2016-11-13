@@ -25,7 +25,7 @@
 			color: black;
 		}
 		body{
-			background-image:url(background1.jpg);
+			background-image:url(/static/background1.jpg);
 			background-position:center;
 			background-repeat:repeat;
 			background-attachment:fixed;
@@ -42,13 +42,16 @@
 <body>
     <h1>Your Station</h1>
     <p>
-    	<img id="header" src="TrackingTransportation.png" alt="Image not Found" title="MBTA Header"/><br>
+    	<img id="header" src="/static/TrackingTransportation.png" alt="Image not Found" title="MBTA Header"/><br>
         Your location is: {{location}}.
     </p>
 
     <p>
         The nearest MBTA Station is {{stopname}}, and it is {{distance}} miles away from your location.
     </p>
+        <p>
+        <img id="map" src="/static/MBTAmap.jpg" alt="Image Not Found" title="MBTA Map"/>
+        </p>
 </body>
 
 </html>

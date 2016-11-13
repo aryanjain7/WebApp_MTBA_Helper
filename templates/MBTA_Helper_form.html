@@ -26,7 +26,7 @@
 			color: black;
 		}
 		body{
-			background-image:url(background1.jpg);
+			background-image:url(/static/background1.jpg);
 			background-position:center;
 			background-repeat:repeat;
 			background-attachment:fixed;
@@ -47,20 +47,13 @@
     
     <form action="" method="post" name="MBTA_Helper">
         <p>
-        <img id="header" src="TrackingTransportation.png" alt="Image not Found" title="MBTA Header"/><br>
+        <img id="header" src="/static/TrackingTransportation.png" alt="Image not Found" title="MBTA Header"/><br>
         Welcome to the MBTA Helper Application. To keep things simple, just enter a location to find out the nearest MBTA Station: <br>
             <input type="text" name="location"/> <br>
           	<input type="submit" value="Find Station" />
-     	</p>
+     	</p>        
         <p>
-            Please enter a location to find out the nearest MBTA Station:
-        </p>
-        <p>
-            <input type="text" name="location" />
-        </p>
-        
-        <p>
-        <img id="map" src="MBTAmap.jpg" alt="Image Not Found" title="MBTA Map"/>
+        <img id="map" src="/static/MBTAmap.jpg" alt="Image Not Found" title="MBTA Map"/>
         </p>
 
     </form>
