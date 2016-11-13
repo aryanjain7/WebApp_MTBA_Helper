@@ -19,6 +19,7 @@ def MBTA_Helper():
     if request.method == 'POST':
         location = request.form['location']
         stopname, distance = find_stop_near(location)
+        distance = round(float(distance),2)
         if stopname:
             return render_template('MBTA_Helper_result.html', location =location, stopname = stopname, distance = distance)
 

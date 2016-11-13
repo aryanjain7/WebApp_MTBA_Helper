@@ -18,7 +18,7 @@ def get_url(place_name):
     returns the associated Google API search URL
     ''' 
     # generate a URL for Google API to search the place 
-    # if the URL cannot be generated, return else
+    # if the URL cannot be generated, return except
     try:
         url = "https://maps.googleapis.com/maps/api/geocode/json?address="
         # add the place name to the URL
