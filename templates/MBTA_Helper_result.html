@@ -44,7 +44,7 @@
 
     <script>
         function checkLoc() {
-            if ({{ distance }} == 'inf') 
+            if ({{ distance }} == 'Inf miles away') 
 			{
                 alert("Your location could not be found. Please try entering a different location. If you entered the name of a landmark, try adding 'Boston' at the end to specify the city.");
             }
@@ -60,6 +60,7 @@
 
     <p>
         The nearest MBTA Station is {{stopname}}, and it is {{distance}} miles away from your location.
+        {{error}}
     </p>
     <p>
         <img id="map" src="/static/MBTAmap.jpg" alt="Image Not Found" title="MBTA Map" />
