@@ -92,8 +92,8 @@ def find_stop_near(place_name):
     return get_nearest_station(lat, lng)
 
 def main():
-    place = input("Name a landmark near you bruh: ")
-    print(find_stop_near(place))
+    # place = input("Name a landmark near you bruh: ")
+    # print(find_stop_near(place))
 
 
 if __name__ == '__main__':
